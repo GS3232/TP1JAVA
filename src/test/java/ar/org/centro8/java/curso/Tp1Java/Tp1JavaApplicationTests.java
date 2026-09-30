@@ -6,6 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
+import ar.org.centro8.java.curso.Tp1Java.Entidades.ClienteIndividual;
+import ar.org.centro8.java.curso.Tp1Java.Entidades.ClienteEmpresa;
+import ar.org.centro8.java.curso.Tp1Java.Entidades.Cuenta;
+import ar.org.centro8.java.curso.Tp1Java.Entidades.CajaAhorro;
+import ar.org.centro8.java.curso.Tp1Java.Entidades.CuentaCorriente;
+import ar.org.centro8.java.curso.Tp1Java.Entidades.CuentaConvertibilidad;
+import ar.org.centro8.java.curso.Tp1Java.Entidades.Cheque;
+
 
 class Tp1JavaApplicationTests {
 

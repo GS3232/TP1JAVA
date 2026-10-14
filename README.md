@@ -1,165 +1,105 @@
-# TP1 Java POO - Sistema Bancario
+# TP1 Java POO — Sistema Bancario
 
-## Descripción
+## Descripción del proyecto
 
-Trabajo práctico de Java POO sobre relaciones entre clases y modelado de un sistema bancario.
+Este proyecto consiste en modelar un sistema bancario utilizando Java y los principios de la Programación Orientada a Objetos (POO).
 
-El sistema permite registrar clientes y cuentas bancarias, realizar operaciones con dinero y trabajar con distintos tipos de cuentas.
+El sistema permite registrar clientes individuales y empresas, administrar cuentas bancarias, realizar depósitos y extracciones, depositar cheques y convertir saldos entre pesos y dólares.
 
-El proyecto utiliza **Lombok** para simplificar el código repetitivo, principalmente mediante `@Getter`, `@Setter` y `@ToString`.
+## Tecnologías utilizadas
 
-## Objetivos
+- **Java:** lenguaje de programación.
+- **Maven:** compilación y administración del proyecto.
+- **Lombok:** generación automática de código repetitivo.
+- **Git y GitHub:** control de versiones y entrega del trabajo.
+- **UML:** representación gráfica de las clases y sus relaciones.
 
-- Aplicar programación orientada a objetos.
-- Utilizar clases y objetos.
-- Aplicar herencia.
-- Utilizar clases abstractas.
-- Representar relaciones entre clases.
-- Aplicar encapsulamiento mediante atributos privados, getters y setters.
-- Implementar diferentes comportamientos según el tipo de cuenta.
-- Utilizar Lombok para simplificar getters, setters y métodos `toString`.
-- Realizar pruebas de las funcionalidades mediante clases de test.
-- Mantener el proyecto modularizado mediante paquetes.
+## Estructura del proyecto
 
-## Clientes
+Las clases están organizadas en los siguientes paquetes:
 
-Se creó una clase abstracta `Cliente`.
+- `entidades.clientes`: contiene las clases relacionadas con los clientes.
+- `entidades.cuentas`: contiene las clases relacionadas con las cuentas bancarias y los cheques.
+- `test`: contiene los programas utilizados para probar las operaciones.
 
-A partir de ella se crearon:
+## Clases principales
 
-- `ClienteIndividual`
-- `ClienteEmpresa`
+### Clientes
 
-### ClienteIndividual
+- `Cliente`: clase abstracta que contiene el número identificador del cliente.
+- `ClienteIndividual`: representa un cliente individual con nombre, apellido y DNI.
+- `ClienteEmpresa`: representa una empresa con nombre de fantasía y CUIT.
 
-Contiene:
+### Cuentas
 
-- Nombre
-- Apellido
-- DNI
+- `Cuenta`: clase abstracta que contiene el número de cuenta, el cliente titular, el saldo y las operaciones generales.
+- `CajaAhorro`: permite depositar y extraer efectivo y cobrar intereses.
+- `CuentaCorriente`: permite depositar efectivo, depositar cheques y utilizar un descubierto autorizado.
+- `CuentaConvertibilidad`: hereda de `CuentaCorriente` y permite operar en pesos y dólares, además de convertir entre ambas monedas.
+- `Cheque`: representa un cheque con monto, banco emisor y fecha de pago.
 
-### ClienteEmpresa
+## Los cuatro pilares de la Programación Orientada a Objetos
 
-Contiene:
+### 1. Abstracción
 
-- Nombre de fantasía
-- CUIT
+Se aplica mediante las clases abstractas `Cliente` y `Cuenta`, que representan características y operaciones comunes a sus clases derivadas.
 
-## Cuentas
+### 2. Encapsulamiento
 
-Se creó la clase `Cuenta` como clase base.
+Los atributos se declaran como `private`. Se utilizan getters y setters generados mediante Lombok para consultar y modificar los datos.
 
-Una cuenta contiene:
+### 3. Herencia
 
-- Número de cuenta
-- Cliente asociado
-- Saldo
+Se reutilizan atributos y métodos mediante las siguientes relaciones:
 
-Permite:
+- `ClienteIndividual` hereda de `Cliente`.
+- `ClienteEmpresa` hereda de `Cliente`.
+- `CajaAhorro` hereda de `Cuenta`.
+- `CuentaCorriente` hereda de `Cuenta`.
+- `CuentaConvertibilidad` hereda de `CuentaCorriente`.
 
-- Depositar efectivo
-- Debitar efectivo
+### 4. Polimorfismo
 
-### CajaAhorro
+Se utiliza la sobrescritura del método `debitarEfectivo()` en `CuentaCorriente`, mediante `@Override`, para permitir el uso del descubierto autorizado.
 
-Hereda de `Cuenta` y agrega:
+## Uso de Lombok
 
-- Tasa de interés
-- Cobro de intereses
+Lombok reduce el código repetitivo mediante anotaciones:
 
-### CuentaCorriente
+- `@Getter`: genera métodos para consultar atributos.
+- `@Setter`: genera métodos para modificar atributos.
+- `@ToString`: genera una representación textual del objeto.
+- `@AllArgsConstructor`: genera un constructor con todos los atributos declarados en la clase.
 
-Hereda de `Cuenta` y agrega:
+En las clases derivadas se utiliza `@ToString(callSuper = true)` para incluir también la información heredada en la representación textual.
 
-- Monto autorizado para girar en descubierto
-- Depósito de cheques
+## Pruebas del proyecto
 
-También permite utilizar el descubierto respetando el límite autorizado.
+El proyecto contiene cuatro programas de prueba que utilizan `main()` y `System.out.println()` para mostrar los resultados en la consola.
 
-### Cheque
+- `TestCajaAhorro`: comprueba depósitos, extracciones e intereses.
+- `TestCheque`: comprueba la creación y consulta de los datos de un cheque.
+- `TestCuentaCorriente`: comprueba depósitos, extracciones con descubierto y depósitos de cheques.
+- `TestCuentaConvertibilidad`: comprueba operaciones en pesos y dólares y conversiones de moneda.
 
-Contiene:
+Las pruebas se ejecutan individualmente desde Visual Studio Code mediante la opción **Run Java**.
 
-- Monto
-- Banco emisor
-- Fecha de pago
+También se verificó la compilación del proyecto mediante Maven.
 
-### CuentaConvertibilidad
+## Compilación del proyecto
 
-Hereda de `CuentaCorriente` y está destinada a clientes empresa.
+Desde la terminal, ubicada en la carpeta raíz del proyecto, se puede ejecutar:
 
-Permite:
+```powershell
+.\mvnw.cmd clean test
+```
 
-- Operar en pesos
-- Operar en dólares
-- Depositar dólares
-- Debitar dólares
-- Convertir pesos a dólares
-- Convertir dólares a pesos
+Este comando limpia los archivos compilados anteriores, compila el proyecto y ejecuta las pruebas automatizadas que Maven reconoce.
 
-Para los dólares no se permite utilizar descubierto.
+## Diagrama UML
 
-## Métodos principales
+El diagrama UML representa las clases del sistema, sus atributos, métodos, relaciones de herencia y asociaciones.
 
-Entre los principales métodos implementados se encuentran:
+## Autor
 
-- `depositarEfectivo()`
-- `debitarEfectivo()`
-- `cobrarInteres()`
-- `depositarCheque()`
-- `depositarDolares()`
-- `debitarDolares()`
-- `convertirPesosADolares()`
-- `convertirDolaresAPesos()`
-
-Estos métodos permiten realizar las operaciones correspondientes a cada tipo de cuenta.
-
-## Lombok
-
-El proyecto utiliza **Lombok** para simplificar el código repetitivo.
-
-Se utilizan las siguientes anotaciones:
-
-- `@Getter`: permite acceder a los valores de los atributos mediante getters.
-- `@Setter`: permite modificar los valores de los atributos mediante setters.
-- `@ToString`: genera automáticamente el método `toString()`.
-
-De esta forma se reduce la cantidad de código repetitivo en las clases.
-
-## Modularización
-
-El proyecto está organizado en paquetes para separar las responsabilidades.
-
-### `Entidades`
-
-Contiene las clases principales del sistema:
-
-- `Cliente`
-- `ClienteIndividual`
-- `ClienteEmpresa`
-- `Cuenta`
-- `CajaAhorro`
-- `CuentaCorriente`
-- `CuentaConvertibilidad`
-- `Cheque`
-
-### `test`
-
-Contiene las clases utilizadas para probar el funcionamiento de las entidades:
-
-- `TestCajaAhorro`
-- `TestCuentaCorriente`
-- `TestCheque`
-- `TestCuentaConvertibilidad`
-
-## Relaciones entre clases
-
-```text
-Cliente
-├── ClienteIndividual
-└── ClienteEmpresa
-
-Cuenta
-├── CajaAhorro
-└── CuentaCorriente
-       └── CuentaConvertibilidad
+Trabajo práctico individual de Java POO.

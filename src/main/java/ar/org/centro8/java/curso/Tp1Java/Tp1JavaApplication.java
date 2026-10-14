@@ -1,4 +1,4 @@
-package ar.org.centro8.java.curso.Tp1Java;
+package ar.org.centro8.java.curso.tp1java;
 
 public class Tp1JavaApplication {
 

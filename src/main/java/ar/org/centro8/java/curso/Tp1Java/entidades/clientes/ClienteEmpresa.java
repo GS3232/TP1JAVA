@@ -1,10 +1,14 @@
-package ar.org.centro8.java.curso.Tp1Java.Entidades;
+package ar.org.centro8.java.curso.tp1java.entidades.clientes;
 
 import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 // Representa a un cliente que es una empresa.
 // Hereda el número de cliente de la clase Cliente.
 @Getter
+@Setter
+@ToString(callSuper = true)
 public class ClienteEmpresa extends Cliente {
 
     // Datos propios del cliente empresa.
@@ -19,14 +23,11 @@ public class ClienteEmpresa extends Cliente {
             String cuit) {
 
         // Llama al constructor de Cliente
-        // para inicializar el número de cliente.
+        // para guardar el número de cliente.
         super(numero);
 
-        // Guardo los datos recibidos en los atributos del objeto.
+        // Guarda los datos propios de la empresa.
         this.nombreFantasia = nombreFantasia;
         this.cuit = cuit;
     }
-
-    // Lombok genera automáticamente los getters
-    // de nombreFantasia y cuit.
 }
